@@ -27,7 +27,7 @@ class TestDetectWin(unittest.TestCase):
 
     def test_countSuits(self):
         cards = ["H2", "H3", "H4", "H5", "S2", "S3", "C2"]
-        count = detectWin.countSuits(cards)
+        count = detectWin.count_suits(cards)
         self.assertEquals(count["H"], 4)
         self.assertEquals(count["S"], 2)
         self.assertEquals(count["C"], 1)
@@ -35,7 +35,7 @@ class TestDetectWin(unittest.TestCase):
 
     def test_countNumber(self):
         cards = ["H2", "H3", "H4", "H5", "S2", "S3", "C2"]
-        count = detectWin.countNumbers(cards)
+        count = detectWin.count_numbers(cards)
         self.assertEquals(count[2], 3)
         self.assertEquals(count[3], 2)
         self.assertEquals(count[4], 1)
@@ -44,8 +44,8 @@ class TestDetectWin(unittest.TestCase):
 
     def test_countContainsGroup(self):
         count = {"1": 1, "2": 2, "3": 3}
-        self.assertTrue(detectWin.countContainsGroup(count, 3))
-        self.assertFalse(detectWin.countContainsGroup(count, 3))
+        self.assertTrue(detectWin.count_contains_group(count, 3))
+        self.assertFalse(detectWin.count_contains_group(count, 3))
 
 
     # def test_isStraightFlush(self):
@@ -57,19 +57,19 @@ class TestDetectWin(unittest.TestCase):
     def test_isFourOfAKind(self):
         cards = ["H4", "S10", "C4", "D10", "S4", "H10", "D4"]
         expected = 7
-        result = detectWin.getHandRank(cards)
+        result = detectWin.get_hand_rank(cards)
         self.assertEqual(expected, result)
 
     def test_isFullHouse(self):
         cards = ["H2", "S2", "C5", "D5", "C3", "D3", "H3"]
         expected = 6
-        result = detectWin.getHandRank(cards)
+        result = detectWin.get_hand_rank(cards)
         self.assertEqual(expected, result)
 
     def test_isFlush(self):
         cards = ["H2", "H4", "D3", "H6", "H8", "S3", "H10"]
         expected = 5
-        result = detectWin.getHandRank(cards)
+        result = detectWin.get_hand_rank(cards)
         self.assertEqual(expected, result)
 
     # def test_isStraight(self):
@@ -81,25 +81,25 @@ class TestDetectWin(unittest.TestCase):
     def test_isThreeOfAKind(self):
         cards = ["H3", "D3", "C3", "S2", "C10", "D5", "S11"]
         expected = 3
-        result = detectWin.getHandRank(cards)
+        result = detectWin.get_hand_rank(cards)
         self.assertEqual(expected, result)
 
     def test_isTwoPair(self):
         cards = ["H2", "C8", "D2", "S10", "D4", "C10", "H6"]
         expected = 2
-        result = detectWin.getHandRank(cards)
+        result = detectWin.get_hand_rank(cards)
         self.assertEqual(expected, result)
 
     def test_isPair(self):
         cards = ["H2", "D4", "H6", "C2", "C8", "S10", "C12"]
         expected = 1
-        result = detectWin.getHandRank(cards)
+        result = detectWin.get_hand_rank(cards)
         self.assertEqual(expected, result)
 
     def test_isNothing(self):
         cards = ["H2", "D4", "H6", "C8", "S10", "C12", "H14"]
         expected = 0
-        result = detectWin.getHandRank(cards)
+        result = detectWin.get_hand_rank(cards)
         self.assertEqual(expected, result)
 
     def test_detectWin_oneEnemyWins_oneEnemyLoses(self):
@@ -112,4 +112,10 @@ class TestDetectWin(unittest.TestCase):
         self.assertFalse(detectWin.checkWin(jsonDict))
 
     def test_detectWin_myWin(self):
-        pass
+        jsonDict = {"river": ["C4", "C5", "C10", "H8", "S10"],
+                    "me": ["H10", "S10"],
+                    "ops": [
+                        ["H2", "S3"],
+                        ["C2", "C7"]
+                    ]}
+        self.assertTrue(detectWin.checkWin(jsonDict))
